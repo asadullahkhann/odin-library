@@ -70,3 +70,53 @@ form button {
 form button:hover {
     opacity: .5;
 }
+
+.library {
+    padding: 15px;
+    display: none;
+    flex-wrap: wrap;
+    gap: 15px;
+    background-color: #e2e8f0;
+}
+
+table, th, td {
+    border: 1px solid;
+}
+
+th, td {
+    padding: 10px;
+}
+
+table {
+    font-size: 1.3rem;
+}
+
+th {
+    background-color: #faac40;
+}
+
+td {
+    background-color: #fff;
+    color: #9e9e9e;
+}
+
+.book-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.book-btns button {
+    padding: 5px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    flex-grow: 1;
+}
+
+.book-btns button:first-child {
+    background-color: #5bb75d;
+}
+
+.book-btns button:last-child {
+    background-color: #d9534e;
+}
