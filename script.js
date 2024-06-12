@@ -11,6 +11,10 @@ function Book(author, title, pages, isRead) {
     this.isRead = isRead;
 }
 
+Book.prototype.setIsRead = function(bool) {
+    this.isRead = bool;
+}
+
 function addBookToLibrary(inputs) {
     let [author, title, pages, isRead] = inputs;
     const newBook = new Book(author, title, pages, isRead);
