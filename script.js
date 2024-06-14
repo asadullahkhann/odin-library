@@ -11,33 +11,21 @@ function Book(author, title, pages, isRead) {
     this.isRead = isRead;
 }
 
-Book.prototype.setIsRead = function(bool) {
-    this.isRead = bool;
+Book.prototype.toggleIsRead = function() {
+    this.isRead = this.isRead === true ? false : true;
 }
 
-function addBookToLibrary(inputs) {
-    let [author, title, pages, isRead] = inputs;
-    const newBook = new Book(author, title, pages, isRead);
-    myLibrary.push(newBook);
-    let tHeadings = ['Author', 'Title', 'Pages'];
-    const card = document.createElement('div');
-    const table = document.createElement('table');
-    const trs = [];
-    for(let i = 0; i < 3; i++) {
-        const tr = document.createElement('tr');
-        const th = document.createElement('th');
-        const td = document.createElement('td');
-        th.textContent = tHeadings[i];
-        td.textContent = inputs[i];
-        tr.appendChild(th);
-        tr.appendChild(td);
-        table.appendChild(tr);
+function addBookToLibrary() {
+    const inputs = document.querySelectorAll('input');
+    const inputValues = [];
+    for(let input of inputs) {
+        if(input.id === 'read-status') {
+            inputValues.push(input.checked);
+            continue;
+        }
+        inputValues.push(input.value);
+
     }
-    const bookBtnsContainer = document.createElement('div');
-    bookBtnsContainer.classList.add('book-btns');
-    const toggleReadBtn = document.createElement('button');
-    const removeBtn = document.createElement('button')
-    card.appendChild(table);
-    library.appendChild(card);
-    library.style.display = 'flex';
+    myLibrary.push(new Book(...inputValues));
+    
 }
