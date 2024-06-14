@@ -27,5 +27,8 @@ function addBookToLibrary() {
 
     }
     myLibrary.push(new Book(...inputValues));
-    
 }
+
+addBtn.addEventListener('click', () => {
+    modal.showModal();
+})
