@@ -29,6 +29,57 @@ function addBookToLibrary() {
     myLibrary.push(new Book(...inputValues));
 }
 
+function addBookToPage() {
+    while(library.firstChild) {
+        library.removeChild(library.firstChild);
+    }
+    for(let book of myLibrary) {
+        const card = document.createElement('div');
+        card.setAttribute('data-index', myLibrary.indexOf(book));
+        const table = document.createElement('table');
+        for(let prop in book) {
+            if(prop === 'isRead' || !book.hasOwnProperty(prop)) continue;
+            const tr = document.createElement('tr');
+            const th = document.createElement('th');
+            const td = document.createElement('td');
+            th.textContent = prop[0].toUpperCase() + prop.slice(1);
+            td.textContent = book[prop];
+            tr.appendChild(th);
+            tr.appendChild(td);
+            table.appendChild(tr);
+            };
+            const bookBtnsContainer = document.createElement('div');
+            bookBtnsContainer.classList.add('book-btns');
+            const toggleReadStatusBtn = document.createElement('button');
+            const removeBookBtn = document.createElement('button');
+            toggleReadStatusBtn.textContent = book.isRead === true ? 'Read' : 'Unread';
+            removeBookBtn.textContent = 'Remove';
+            toggleReadStatusBtn.addEventListener('click', (e) => {
+                const dataIndex = e.target.parentElement.parentElement.getAttribute('data-index');
+                myLibrary[+dataIndex].toggleIsRead();
+                e.target.textContent = e.target.textContent === 'Read' ? 'Unread' : 'Read';
+            });
+            removeBookBtn.addEventListener('click', (e) => {
+                const dataIndex = e.target.parentElement.parentElement.getAttribute('data-index');
+                myLibrary.splice(+dataIndex, 1);
+                const currantCard = document.querySelector(`div[data-index="${dataIndex}"]`);
+                library.removeChild(currantCard);
+                addBookToPage();
+            });
+            bookBtnsContainer.appendChild(toggleReadStatusBtn);
+            bookBtnsContainer.appendChild(removeBookBtn);
+            card.appendChild(table);
+            card.appendChild(bookBtnsContainer);
+            library.appendChild(card);
+            library.style.padding = '15px';
+        }
+}
+
 addBtn.addEventListener('click', () => {
     modal.showModal();
-})
+});
+
+modal.addEventListener('close', () => {
+    addBookToLibrary();
+    addBookToPage();
+});
