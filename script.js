@@ -33,6 +33,7 @@ function addBookToPage() {
     while(library.firstChild) {
         library.removeChild(library.firstChild);
     }
+    library.style.padding = '0';
     for(let book of myLibrary) {
         const card = document.createElement('div');
         card.setAttribute('data-index', myLibrary.indexOf(book));
