@@ -1,6 +1,7 @@
 const addBtn = document.querySelector('.add-btn-container>button');
 const modal = document.querySelector('dialog');
 const library = document.querySelector('.library');
+const inputs = document.querySelectorAll('input');
 
 const myLibrary = [];
 
@@ -16,18 +17,21 @@ class Book {
     }
 }
 
-function addBookToLibrary() {
-    const inputs = document.querySelectorAll('input');
+function addBookToLibrary(values) {
+    const [author, title, pages, isRead] = values;
+    myLibrary.push(new Book(author, title, pages, isRead));
+}
+
+function getInputValues() {
     const inputValues = [];
-    for(let input of inputs) {
+    inputs.forEach(input => {
         if(input.id === 'read-status') {
             inputValues.push(input.checked);
-            continue;
+        }else {
+            inputValues.push(input.value);
         }
-        inputValues.push(input.value);
-
-    }
-    myLibrary.push(new Book(...inputValues));
+    });
+    return inputValues;
 }
 
 function addBookToPage() {
@@ -82,6 +86,7 @@ addBtn.addEventListener('click', () => {
 });
 
 modal.addEventListener('close', () => {
-    addBookToLibrary();
+    const inputValues = getInputValues();
+    addBookToLibrary(inputValues);
     addBookToPage();
 });
